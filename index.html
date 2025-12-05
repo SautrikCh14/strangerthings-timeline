@@ -16,7 +16,7 @@
     <!-- Header -->
     <header class="header">
       <div class="logo-container">
-        <img src="/assets/logo.png" alt="Stranger Things Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <img src="assets/logo.png" alt="Stranger Things Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
         <h1 class="logo-text" style="display: none;">STRANGER THINGS</h1>
       </div>
       <div class="controls">
@@ -37,7 +37,6 @@
       <aside class="characters-panel" aria-label="Character selection">
         <h2 class="section-title">Characters</h2>
         <div id="charactersGrid" class="characters-grid" role="list">
-          <!-- Characters will be dynamically loaded here -->
         </div>
       </aside>
 
@@ -46,8 +45,7 @@
         <h2 class="section-title">Timeline</h2>
         <div class="timeline-container">
           <div class="timeline-line" aria-hidden="true"></div>
-          <div id="timelineCards" class="timeline-cards">
-            <!-- Season cards will be dynamically loaded here -->
+          <div id="timelineCards" class="timeline-cards">           
           </div>
         </div>
       </section>
@@ -83,10 +81,10 @@
 
     <!-- Audio Elements -->
     <audio id="bgMusic" loop preload="auto">
-      <source src="/sounds/bg.mp3" type="audio/mpeg">
+      <source src="sounds/bg.mp3" type="audio/mpeg">
     </audio>
     <audio id="clickSound" preload="auto">
-      <source src="/sounds/click.mp3" type="audio/mpeg">
+      <source src="sounds/click.mp3" type="audio/mpeg">
     </audio>
 
     <script type="module" src="./script.js"></script>
