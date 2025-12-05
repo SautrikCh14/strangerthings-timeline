@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stranger Things — Interactive Timeline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/benguiat" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+    
+</head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-container">
+        <img src="/assets/logo.png" alt="Stranger Things Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <h1 class="logo-text" style="display: none;">STRANGER THINGS</h1>
+      </div>
+      <div class="controls">
+        <button id="musicToggle" class="control-btn" aria-label="Toggle background music">
+          <span class="btn-icon">🎵</span>
+          <span class="btn-text">Play Music</span>
+        </button>
+        <button id="muteToggle" class="control-btn" aria-label="Toggle sound effects">
+          <span class="btn-icon">🔊</span>
+          <span class="btn-text">Sound ON</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+      <!-- Left: Character Selection -->
+      <aside class="characters-panel" aria-label="Character selection">
+        <h2 class="section-title">Characters</h2>
+        <div id="charactersGrid" class="characters-grid" role="list">
+          <!-- Characters will be dynamically loaded here -->
+        </div>
+      </aside>
+
+      <!-- Center: Timeline -->
+      <section class="timeline-panel" aria-label="Season timeline">
+        <h2 class="section-title">Timeline</h2>
+        <div class="timeline-container">
+          <div class="timeline-line" aria-hidden="true"></div>
+          <div id="timelineCards" class="timeline-cards">
+            <!-- Season cards will be dynamically loaded here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Character Info -->
+      <aside class="info-panel" aria-label="Character information">
+        <h2 class="section-title">Profile</h2>
+        <div id="characterInfo" class="character-info">
+          <div class="info-placeholder">
+            <p class="placeholder-text">Select a character to view their story</p>
+            <span class="placeholder-icon">👤</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Modal for Season Details -->
+    <div id="seasonModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button id="modalClose" class="modal-close" aria-label="Close modal">×</button>
+        <div class="modal-body">
+          <div class="modal-poster">
+            <img id="modalPosterImg" src="" alt="" />
+          </div>
+          <div class="modal-text">
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <div id="modalSynopsis" class="modal-synopsis"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="bgMusic" loop preload="auto">
+      <source src="/sounds/bg.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="clickSound" preload="auto">
+      <source src="/sounds/click.mp3" type="audio/mpeg">
+    </audio>
+
+    <script type="module" src="/script.js"></script>
+  </body>
+</html>

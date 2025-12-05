@@ -1,0 +1,897 @@
+/* ===========================
+   Stranger Things Timeline UI
+   =========================== */
+
+:root{
+  --bg-1:#05060a;
+  --bg-2:#13131a;
+  --muted:#9aa3b2;
+  --red:#ff1f44;
+  --glass: rgba(255,255,255,0.03);
+  --accent-shadow: 0 6px 30px rgba(255,40,60,0.12);
+  --card-w:380px;
+}
+
+/* reset */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:#e6eef8}
+
+/* header */
+.site-header{
+  display:flex;align-items:center;justify-content:space-between;padding:22px 32px;border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.st-logo{height:72px;object-fit:contain;filter:drop-shadow(0 4px 18px rgba(255,0,30,0.25));transition:filter .4s ease;}
+
+/* benguiat for main logo - we use CSS to enforce it for the image alternative*/
+h1.logo-fallback{font-family:'Benguiat',serif; font-weight:700; font-size:44px; color:var(--red); text-shadow:0 0 24px rgba(255,50,70,0.18); letter-spacing:3px}
+
+/* controls */
+.control {
+    padding: 10px 18px;
+    border-radius: 25px;
+    background: #1c1c1c;
+    border: 1px solid #ff0036;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.control:hover {
+    background: #ff0036;
+    color: black;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff0036;
+}
+
+/* main layout */
+.stage{
+  display:grid;
+  grid-template-columns:120px 1fr 360px;
+  gap:22px;
+  padding:32px;
+  align-items:start;
+  max-width:1300px;margin:28px auto;
+}
+
+/* left characters column */
+.characters{
+  display:flex;flex-direction:column;gap:12px;align-items:center;padding-top:20px;
+}
+.char{
+  width:84px;height:84px;border-radius:999px;overflow:hidden;border:3px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);cursor:pointer;transition:transform .25s ease, box-shadow .25s ease;
+  will-change:transform;
+}
+.char img{width:100%;height:100%;object-fit:cover;display:block}
+.char:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 8px 28px rgba(255,20,40,0.12);border-color:rgba(255,34,45,0.8)}
+
+/* center timeline */
+.timeline-wrap {
+  position: relative;
+  padding: 24px 8px 8px 8px;
+  z-index: 0;           /* base layer for the line */
+}
+
+.timeline-line{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:6px;
+  height:100%;
+  background:linear-gradient(180deg,var(--red), rgba(255,60,80,0.2));
+  border-radius:6px;
+  box-shadow:0 0 40px rgba(255,20,40,0.12);
+  z-index: 0;           /* behind cards */
+}
+/* ============================
+   CSS Variables & Reset
+   ============================ */
+:root {
+  --color-bg-dark: #0a0a0a;
+  --color-bg-card: rgba(20, 20, 20, 0.6);
+  --color-red-primary: #e30613;
+  --color-red-glow: rgba(227, 6, 19, 0.5);
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #b0b0b0;
+  --color-border: rgba(227, 6, 19, 0.3);
+
+  --font-body: 'Poppins', sans-serif;
+  --font-title: 'Creepster', cursive;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(ellipse at center, #1a0d0d 0%, var(--color-bg-dark) 100%);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(227, 6, 19, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(227, 6, 19, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================
+   Header
+   ============================ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 60px;
+  filter: drop-shadow(0 0 10px var(--color-red-glow));
+  transition: filter var(--transition-speed);
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 20px var(--color-red-primary));
+}
+
+.logo-text {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: var(--color-red-primary);
+  text-shadow: 0 0 20px var(--color-red-glow);
+  letter-spacing: 2px;
+}
+
+.controls {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  backdrop-filter: blur(10px);
+}
+
+.control-btn:hover {
+  background: rgba(227, 6, 19, 0.1);
+  border-color: var(--color-red-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--color-red-glow);
+}
+
+.control-btn:focus {
+  outline: 2px solid var(--color-red-primary);
+  outline-offset: 2px;
+}
+
+.control-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+/* ============================
+   Main Layout
+   ============================ */
+.main-container {
+  display: grid;
+  grid-template-columns: 200px 1fr 300px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  color: var(--color-red-primary);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  text-shadow: 0 0 10px var(--color-red-glow);
+  letter-spacing: 2px;
+}
+
+/* ============================
+   Characters Panel
+   ============================ */
+.characters-panel {
+  position: relative;
+}
+
+.characters-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.character-card {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  position: relative;
+  background: var(--color-bg-card);
+  backdrop-filter: blur(10px);
+}
+
+.character-card:hover {
+  border-color: var(--color-red-primary);
+  box-shadow: 0 0 20px var(--color-red-glow);
+  transform: scale(1.1);
+}
+
+.character-card:focus {
+  outline: 2px solid var(--color-red-primary);
+  outline-offset: 4px;
+  border-color: var(--color-red-primary);
+}
+
+.character-card.active {
+  border-color: var(--color-red-primary);
+  box-shadow: 0 0 30px var(--color-red-glow);
+}
+
+.character-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed);
+}
+
+.character-card:hover img {
+  transform: scale(1.1);
+}
+
+.character-card::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--transition-speed);
+  pointer-events: none;
+  color: var(--color-text-secondary);
+}
+
+.character-card:hover::after {
+  opacity: 1;
+}
+
+/* ============================
+   Timeline Panel
+   ============================ */
+.timeline-panel {
+  position: relative;
+}
+
+.timeline-container {
+  position: relative;
+  padding: var(--spacing-md) 0;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    var(--color-red-primary) 10%,
+    var(--color-red-primary) 90%,
+    transparent 100%);
+  box-shadow: 0 0 10px var(--color-red-glow);
+  z-index: 0;
+}
+
+.timeline-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.season-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  position: relative;
+  z-index: 2;
+}
+
+.season-card:hover {
+  background: rgba(227, 6, 19, 0.1);
+  border-color: var(--color-red-primary);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px var(--color-red-glow);
+}
+
+.season-card:focus {
+  outline: 2px solid var(--color-red-primary);
+  outline-offset: 2px;
+}
+
+.season-poster {
+  width: 120px;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.season-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-speed);
+}
+
+.season-card:hover .season-poster img {
+  transform: scale(1.05) rotate(1deg);
+}
+
+.season-info {
+  flex: 1;
+}
+
+.season-title {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  color: var(--color-red-primary);
+  margin-bottom: var(--spacing-xs);
+  text-shadow: 0 0 8px var(--color-red-glow);
+}
+
+.season-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ============================
+   Info Panel
+   ============================ */
+.info-panel {
+  position: sticky;
+  top: 120px;
+  height: fit-content;
+}
+
+.character-info {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  backdrop-filter: blur(10px);
+  min-height: 400px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.info-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--spacing-xl);
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+.placeholder-text {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.placeholder-icon {
+  font-size: 4rem;
+  opacity: 0.3;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.character-detail {
+  animation: fadeIn 0.5s ease;
+}
+
+.character-name {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  color: var(--color-red-primary);
+  margin-bottom: var(--spacing-md);
+  text-shadow: 0 0 10px var(--color-red-glow);
+  text-align: center;
+}
+
+.character-description {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+  text-align: justify;
+}
+
+/* ============================
+   Modal
+   ============================ */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.modal-content {
+  position: relative;
+  max-width: 900px;
+  width: 90%;
+  max-height: 80vh;
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(227, 6, 19, 0.3);
+  animation: modalSlideUp 0.3s ease;
+  overflow: hidden;
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(227, 6, 19, 0.2);
+  color: var(--color-text-primary);
+  font-size: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: var(--color-red-primary);
+  transform: rotate(90deg);
+}
+
+.modal-close:focus {
+  outline: 2px solid var(--color-red-primary);
+  outline-offset: 2px;
+}
+
+.modal-body {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.modal-poster {
+  flex-shrink: 0;
+  width: 300px;
+  height: 450px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.modal-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-text {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.modal-title {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: var(--color-red-primary);
+  margin-bottom: var(--spacing-md);
+  text-shadow: 0 0 15px var(--color-red-glow);
+}
+
+.modal-synopsis {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+  text-align: justify;
+}
+
+/* ============================
+   Responsive Design
+   ============================ */
+@media (max-width: 1200px) {
+  .main-container {
+    grid-template-columns: 150px 1fr 250px;
+    gap: var(--spacing-md);
+  }
+
+  .character-card {
+    width: 80px;
+    height: 80px;
+  }
+
+  .season-poster {
+    width: 100px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 900px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .characters-panel {
+    order: 1;
+  }
+
+  .characters-grid {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: var(--spacing-sm);
+    justify-content: flex-start;
+  }
+
+  .timeline-panel {
+    order: 2;
+  }
+
+  .info-panel {
+    order: 3;
+    position: static;
+  }
+
+  .modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-poster {
+    width: 250px;
+    height: 375px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .control-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .btn-text {
+    display: none;
+  }
+
+  .main-container {
+    padding: var(--spacing-sm);
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .character-card {
+    width: 70px;
+    height: 70px;
+  }
+
+  .season-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .season-poster {
+    width: 100%;
+    max-width: 200px;
+    height: 300px;
+  }
+
+  .modal-body {
+    padding: var(--spacing-md);
+  }
+
+  .modal-poster {
+    width: 200px;
+    height: 300px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================
+   Scrollbar Styling
+   ============================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-red-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff1a27;
+}
+
+/* ============================
+   Accessibility
+   ============================ */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.season-cards{
+  position: relative;
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+  padding-left:60px;
+  padding-right:30px;
+  z-index: 1;           /* above line */
+}
+
+.season-card{
+  position:relative;
+  /* existing styles... */
+  z-index: 2;           /* card body above everything */
+}
+
+.season-card:focus{outline:3px solid rgba(255,40,60,0.12)}
+.season-card:hover{transform:translateX(12px) scale(1.01); box-shadow:0 18px 60px rgba(255,20,40,0.12)}
+.season-poster{width:220px;height:120px;border-radius:10px;background-position:center;background-size:cover;flex-shrink:0;filter:contrast(.95) saturate(.95);transition:transform .28s, box-shadow .28s}
+.season-meta h3{margin:0;font-family:'Benguiat',serif;font-size:22px;color:var(--red);letter-spacing:1px}
+.season-meta p{margin:6px 0 0;color:var(--muted)}
+
+/* small circular marker aligned with line */
+.season-card::after{content:"";position:absolute;left:calc(50% - 9px);top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.4);border:3px solid rgba(255,255,255,0.06)}
+
+/* right info panel */
+.info-panel{background:var(--glass);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 40px rgba(0,0,0,0.45);height:fit-content;min-height:360px}
+.info-inner h2{font-family:Poppins, sans-serif;margin:0 0 8px 0;font-size:20px}
+.info-inner p{color:var(--muted);line-height:1.5}
+
+/* modal */
+.modal.hidden{display:none}
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:1200;padding:22px}
+.modal-panel{width:100%;max-width:920px;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.35));border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 18px 60px rgba(0,0,0,0.6)}
+.modal-close{position:absolute;right:18px;top:12px;background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer}
+
+/* season modal content */
+.modal-body{display:grid;grid-template-columns: 1fr 1.3fr;gap:18px;align-items:start}
+.modal-body img{width:100%;height:auto;border-radius:8px}
+.modal-body h2{font-family:'Benguiat',serif;color:var(--red);margin-top:0}
+.modal-body p{color:var(--muted);line-height:1.6}
+
+/* small screens */
+@media (max-width:980px){
+  .stage{grid-template-columns:80px 1fr; grid-template-rows:auto; padding:18px}
+  .info-panel{order:3;grid-column:1 / -1;margin-top:18px}
+  .characters{grid-column:1/2;flex-direction:row;gap:10px;overflow:auto;padding-bottom:10px}
+  .season-cards{padding-left:16px;padding-right:16px}
+  .timeline-line{left:20px}
+  .season-card{padding-left:56px}
+  .season-card::after{left:12px}
+}
+
+/* small decorative glow that tracks hover (magnetic) */
+.glow {
+  position:absolute;pointer-events:none;border-radius:50%;mix-blend-mode:screen;filter:blur(18px);opacity:0.11;transform:translate(-50%,-50%);
+}
+
+/* ===== Benguiat title overrides (keep all previous CSS unchanged) ===== */
+
+/* Main logo text fallback */
+.logo-text {
+  font-family: 'Benguiat', serif;
+  font-weight: 700;
+}
+
+/* Section titles like Characters, Timeline, Profile */
+.section-title {
+  font-family: 'Benguiat', serif;
+  font-weight: 700;
+}
+
+/* Season titles inside cards */
+.season-title {
+  font-family: 'Benguiat', serif;
+  font-weight: 700;
+}
+
+/* Character names in the info panel */
+.character-name {
+  font-family: 'Benguiat', serif;
+  font-weight: 700;
+}
+
+/* Modal title */
+.modal-title {
+  font-family: 'Benguiat', serif;
+  font-weight: 700;
+}
+
