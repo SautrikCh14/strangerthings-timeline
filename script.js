@@ -1,7 +1,3 @@
-// ============================
-// Data Objects
-// ============================
-
 const charactersData = [
   {
     id: 'eleven',
@@ -126,9 +122,7 @@ const seasonsData = [
   }
 ];
 
-// ============================
-// State Management
-// ============================
+
 
 let state = {
   selectedCharacter: null,
@@ -137,9 +131,7 @@ let state = {
   userInteracted: false
 };
 
-// ============================
-// Audio Management
-// ============================
+
 
 const bgMusic = document.getElementById('bgMusic');
 const clickSound = document.getElementById('clickSound');
@@ -189,9 +181,7 @@ function toggleMute() {
 musicToggle.addEventListener('click', toggleMusic);
 muteToggle.addEventListener('click', toggleMute);
 
-// ============================
-// Character Management
-// ============================
+
 
 function renderCharacters() {
   const container = document.getElementById('charactersGrid');
@@ -265,9 +255,7 @@ function selectCharacter(characterId) {
   `;
 }
 
-// ============================
-// Timeline Management
-// ============================
+
 
 function renderTimeline() {
   const container = document.getElementById('timelineCards');
@@ -297,7 +285,7 @@ function renderTimeline() {
       }
     });
 
-    // Magnetic hover effect
+    
     const poster = card.querySelector('.season-poster');
     card.addEventListener('mousemove', (e) => {
       const rect = poster.getBoundingClientRect();
@@ -316,9 +304,7 @@ function renderTimeline() {
   });
 }
 
-// ============================
-// Modal Management
-// ============================
+
 
 const modal = document.getElementById('seasonModal');
 const modalClose = document.getElementById('modalClose');
@@ -377,9 +363,7 @@ modal.addEventListener('keydown', (e) => {
   }
 });
 
-// ============================
-// Initialization
-// ============================
+
 
 function init() {
   renderCharacters();
