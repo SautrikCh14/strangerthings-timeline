@@ -9,7 +9,7 @@ const charactersData = [
     id: 'mike',
     name: 'Mike Wheeler',
     image: 'assets/characters/mike.png',
-    description: 'Mike Wheeler is the heart that holds the group together, a natural leader whose loyalty knows no bounds. From the moment he opened his basement door to a terrified girl with a shaved head, his life became intertwined with forces beyond comprehension. His unwavering devotion to Eleven has been both his greatest strength and his Achilles heel, driving him to brave impossible dangers and face unimaginable horrors. As the strategist of the group, Mike approaches each supernatural crisis with the same tactical mind he brings to Dungeons & Dragons campaigns. Yet beneath his brave exterior lies a teenager struggling to balance the weight of world-ending secrets with the ordinary challenges of growing up in a town that will never truly be safe again.'
+    description: 'Mike Wheeler is the hear that holds the group together, a natural leader whose loyalty knows no bounds. From the moment he opened his basement door to a terrified girl with a shaved head, his life became intertwined with forces beyond comprehension. His unwavering devotion to Eleven has been both his greatest strength and his Achilles heel, driving him to brave impossible dangers and face unimaginable horrors. As the strategist of the group, Mike approaches each supernatural crisis with the same tactical mind he brings to Dungeons & Dragons campaigns. Yet beneath his brave exterior lies a teenager struggling to balance the weight of world-ending secrets with the ordinary challenges of growing up in a town that will never truly be safe again.'
   },
   {
     id: 'will',
