@@ -171,7 +171,7 @@ body::before {
   display: flex;
   gap: var(--spacing-sm);
 }
-
+/* button */
 .control-btn {
   display: flex;
   align-items: center;
