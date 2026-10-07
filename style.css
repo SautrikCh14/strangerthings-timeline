@@ -1,8 +1,6 @@
 /* ==========================================================
    Stranger Things timeline: retro 80s neon
-   Drop-in replacement for style.css. Same class names, so
-   index.html and script.js need no changes.
-   ========================================================== */
+   Drop-in replacement for style.css.
 
 :root {
   --void: #07040d;
