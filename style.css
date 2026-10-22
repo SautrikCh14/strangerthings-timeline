@@ -261,11 +261,10 @@ body::after {
 .character-card:focus-visible::after,
 .character-card.active::after { opacity: 1; }
 
-/* ---------- Timeline ---------- */
+
 
 .timeline-container { position: relative; }
 
-/* Neon tube running down the left side, with a node on each season */
 .timeline-line {
   position: absolute;
   top: 0; bottom: 0;
