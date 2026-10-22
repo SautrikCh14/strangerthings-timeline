@@ -41,7 +41,7 @@ body {
   background-attachment: fixed;
 }
 
-/* Perspective grid floor */
+
 body::before {
   content: '';
   position: fixed;
