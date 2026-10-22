@@ -194,7 +194,6 @@ body::after {
   box-shadow: 0 0 10px var(--neon), 0 0 22px var(--neon-deep);
 }
 
-/* ---------- Characters ---------- */
 
 .characters-grid {
   display: flex;
