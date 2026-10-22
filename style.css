@@ -239,7 +239,7 @@ body::after {
 
 .character-card.active img { filter: none; }
 
-/* Name label (no longer clipped, since the card doesn't hide overflow) */
+
 .character-card::after {
   content: attr(data-name);
   position: absolute;
