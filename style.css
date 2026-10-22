@@ -158,8 +158,6 @@ body::after {
   outline-offset: 4px;
 }
 
-/* ---------- Layout ---------- */
-
 .main-container {
   position: relative;
   z-index: 1;
